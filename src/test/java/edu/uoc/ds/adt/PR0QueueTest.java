@@ -2,27 +2,29 @@ package edu.uoc.ds.adt;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
+
+import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class PR0QueueTest {
 
-    PR0Queue pr0q;
+    private PR0Queue pr0q;
 
-
-    private void fillQueue() {
-        for (char c = '0'; c < '9'; c++) {
-            pr0q.add(Character.valueOf(c));
-
+    private void fillQueue(LocalDate localDate, int displacement) {
+        for (int i = 0; i < pr0q.CAPACITY; i++) {
+            int daysDisplaced = i * displacement;
+            pr0q.add(localDate.plusDays(daysDisplaced));
         }
     }
+
     @Before
     public void setUp() {
         this.pr0q = new PR0Queue();
 
         assertNotNull(this.pr0q.getQueue());
-        fillQueue();
     }
 
     @After
@@ -30,14 +32,15 @@ public class PR0QueueTest {
         this.pr0q = null;
     }
 
+    @Test
+    public void queueTest_fixedDate() {
+        int displacement = 2;
+        LocalDate initDate = LocalDate.parse("2023-09-28");
 
-    @org.junit.Test
-    public void queueTest() {
-        assertEquals(this.pr0q.CAPACITY-1, this.pr0q.getQueue().size());
+        fillQueue(initDate, displacement);
 
-        assertEquals(this.pr0q.clearFullQueue(), new String("0 1 2 3 4 5 6 7 8 "));
-
+        assertEquals(this.pr0q.CAPACITY, this.pr0q.getQueue().size());
+        assertEquals(this.pr0q.clearFullQueue(), "28/09 30/09 02/10 04/10 06/10 08/10 10/10 12/10 14/10 16/10 ");
         assertEquals(0, this.pr0q.getQueue().size());
     }
-
 }

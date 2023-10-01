@@ -4,32 +4,37 @@ package edu.uoc.ds.adt;
 import edu.uoc.ds.adt.sequential.Stack;
 import edu.uoc.ds.adt.sequential.StackArrayImpl;
 
-public class PR0Stack {
-    public final int CAPACITY = 10;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    private Stack<Character> stack;
+public class PR0Stack {
+
+    public final int CAPACITY = 10;
+    private Stack<LocalDate> stack;
 
     public PR0Stack() {
         newStack();
     }
 
     public void newStack() {
-        stack = new StackArrayImpl<Character>(CAPACITY);
+        stack = new StackArrayImpl<>(CAPACITY);
     }
 
 
     public String clearAllStack() {
         StringBuilder sb = new StringBuilder();
-        while (!stack.isEmpty())
-            sb.append(stack.pop()).append(" ");
+        while (!stack.isEmpty()) {
+            String date = stack.pop().format(DateTimeFormatter.ofPattern("dd/MM"));
+            sb.append(date).append(" ");
+        }
         return sb.toString();
     }
 
-    public Stack<Character> getStack() {
+    public Stack<LocalDate> getStack() {
         return this.stack;
     }
 
-    public void push(Character c) {
+    public void push(LocalDate c) {
         this.stack.push(c);
     }
 }

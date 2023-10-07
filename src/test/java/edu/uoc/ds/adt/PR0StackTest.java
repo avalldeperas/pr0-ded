@@ -13,10 +13,11 @@ public class PR0StackTest {
 
     private PR0Stack pr0q;
 
-    private void fillStack(LocalDate localDate, int displacement) {
+    private void fillStack(LocalDate localDate, int shift) {
+        LocalDate date = localDate;
         for (int i = 0; i < pr0q.CAPACITY; i++) {
-            int daysDisplaced = i * displacement;
-            pr0q.push(localDate.plusDays(daysDisplaced));
+            pr0q.push(date);
+            date = date.plusDays(shift);
         }
     }
 
@@ -34,10 +35,9 @@ public class PR0StackTest {
 
     @Test
     public void stackTest() {
-        int displacement = 2;
+        int shift = 2;
         LocalDate initDate = LocalDate.parse("2023-09-28");
-
-        fillStack(initDate, displacement);
+        fillStack(initDate, shift);
 
         assertEquals(this.pr0q.CAPACITY, this.pr0q.getStack().size());
         assertEquals(this.pr0q.clearAllStack(), "16/10 14/10 12/10 10/10 08/10 06/10 04/10 02/10 30/09 28/09 ");

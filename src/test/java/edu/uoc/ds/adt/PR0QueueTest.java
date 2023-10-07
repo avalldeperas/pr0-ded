@@ -13,10 +13,11 @@ public class PR0QueueTest {
 
     private PR0Queue pr0q;
 
-    private void fillQueue(LocalDate localDate, int displacement) {
+    private void fillQueue(LocalDate localDate, int shift) {
+        LocalDate date = localDate;
         for (int i = 0; i < pr0q.CAPACITY; i++) {
-            int daysDisplaced = i * displacement;
-            pr0q.add(localDate.plusDays(daysDisplaced));
+            pr0q.add(date);
+            date = date.plusDays(shift);
         }
     }
 
@@ -33,11 +34,10 @@ public class PR0QueueTest {
     }
 
     @Test
-    public void queueTest_fixedDate() {
-        int displacement = 2;
+    public void queueTest_fixedDateWithShift() {
+        int shift = 2;
         LocalDate initDate = LocalDate.parse("2023-09-28");
-
-        fillQueue(initDate, displacement);
+        fillQueue(initDate, shift);
 
         assertEquals(this.pr0q.CAPACITY, this.pr0q.getQueue().size());
         assertEquals(this.pr0q.clearFullQueue(), "28/09 30/09 02/10 04/10 06/10 08/10 10/10 12/10 14/10 16/10 ");

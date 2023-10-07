@@ -34,7 +34,7 @@ public class PR0StackTest {
     }
 
     @Test
-    public void stackTest() {
+    public void stackTest_fixedDateWithShift() {
         int shift = 2;
         LocalDate initDate = LocalDate.parse("2023-09-28");
         fillStack(initDate, shift);
